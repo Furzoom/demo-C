@@ -1,5 +1,5 @@
 # folder
-src/test
+src/unp/test/
 # Object files
 *.o
 *.ko

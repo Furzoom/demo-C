@@ -1,5 +1,5 @@
-#ifndef __unp_h
-#define __unp_h
+#ifndef __UNP_H
+#define __UNP_H
 
 #include "error.h"
 #include <sys/types.h>      /* basic system data types */

@@ -4,10 +4,45 @@
  * Author        : Furzoom
  * Email         : mn@furzoom.com
  * Date          : 2015-11-17
- * Last modified : 2015-11-26
+ * Last modified : 2015-11-27
  * Version       : 0.0.1
  **********************************************************************/
 #include "unp.h"
+
+typedef void Sigfunc(int);
+
+Sigfunc *Signal(int signo, Sigfunc *func)
+{
+    struct sigaction act, oact;
+    act.sa_handler = func;
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    if (signo ==  SIGALRM)
+    {
+#ifdef SA_INTERRUPT
+        act.sa_flags |= SA_INTERRUPT;
+#endif
+    }
+    else
+    {
+#ifdef SA_RESTART
+        act.sa_flags |= SA_RESTART;
+#endif
+    }
+    if (sigaction(signo, &act, &oact) < 0)
+        return (SIG_ERR);
+    return oact.sa_handler;
+}
+
+void sig_chld(int signo)
+{
+    pid_t   pid;
+    int     stat;
+
+    pid = wait(&stat);
+    printf("child %d terminated\n", pid);
+    return;
+}
 
 void str_echo(int sockfd)
 {
@@ -51,13 +86,21 @@ int main(int argc, char *argv[])
         err_sys("listen error");
     }
 
+    Signal(SIGCHLD, sig_chld);
+
     while (1)
     {
         chilen = sizeof(cliaddr);
         if ((connfd = accept(listenfd, (struct sockaddr *)&cliaddr, &chilen)) < 0)
         {
-            err_ret("connfd error");
-            continue;
+            if (errno == EINTR)
+            {
+                continue;       // back to while
+            }
+            else
+            {
+                err_sys("connfd error");
+            }
         }
 
         if ((childpid = fork()) == 0)
