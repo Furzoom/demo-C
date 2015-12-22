@@ -2,14 +2,14 @@
  * labyrinth.c - labyrinth
  * Copyright (C) 2013-2015 FURZOOM.COM
  *
- * @file      valuate.c
- * @brief     avluate
- * @details   avluate
+ * @file      labyrinth.c
+ * @brief     labyrinth
+ * @details   labyrinth
  * @author    Yan Ma
  * @version   1.0
  * @date      2015-12
  * @history
- * @website  http://furzoom.com/
+ * @website   http://furzoom.com/
  **/
 
 #include <stdio.h>
