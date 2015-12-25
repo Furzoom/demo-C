@@ -6,12 +6,13 @@ void ouch(int sig)
 {
     printf("\nOUCH! - I got signal %d\n", sig);
     /* set signal to default */
-    (void) signal(SIGINT, SIG_DFL);
+    sleep(3);
+    signal(SIGINT, SIG_DFL);
 }
 
 int main()
 {
-    (void) signal(SIGINT, ouch);
+    signal(SIGINT, ouch);
     /* use 2 CTRL-C to terminate */
     while(1)
     {
