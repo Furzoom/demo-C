@@ -16,6 +16,12 @@ int main()
     do_something(A(10));
     
     // this will cause error
-    do_something(20);
+//    do_something(20);
+
+    // call explicit conversion
+    do_something(static_cast<A>(20));
+
+    // not recommanded
+    do_something((A)30);
     return 0;
 }

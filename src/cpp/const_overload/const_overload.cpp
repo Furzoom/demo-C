@@ -14,7 +14,10 @@ public:
     }
     const char& operator[](size_t pos) {
         cout << "in operator[]\n";
-        return text[pos];
+        // 1.
+//        return text[pos];
+        // 2
+        return const_cast<char &>(static_cast<const Foo&>(*this)[pos]);
     }
 };
 
