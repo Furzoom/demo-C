@@ -19,3 +19,10 @@
     * do not convert host addresses to names, can avoid DNS lookups
 * tcpdump -t
     * do not print the timestamp on each dump line
+* tcpdump -s *snaplen*
+    * snarf snaplen bytes of data from each package rather than the default 65535 bytes
+
+### host
+
+* host -t *type* *name*
+    * query type, type can be A, CNAME etc.
