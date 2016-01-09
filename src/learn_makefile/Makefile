@@ -1,4 +1,27 @@
-# Makefile V1.0.7
+# assignment
+# usage make DEFINE_VRE=true OPT=define
+# usage make DEFINE_VRE=true OPT=add
+# usage make DEFINE_VRE=true OPT=recover
+# usage make DEFINE_VRE= OPT=define
+# usage make DEFINE_VRE= OPT=add
+# usage make DEFINE_VRE= OPT=recover
 
-kbd.c: *.c
-	ls -l $?
+ifdef DEFINE_VRE
+	VRE = "HELLO"
+else
+endif
+
+ifeq ($(OPT), define)
+	VRE ?= "HELLO FIRST"
+endif
+
+ifeq ($(OPT), add)
+	VRE += "Kelly"
+endif
+
+ifeq ($(OPT), recover)
+	VRE := "HELLO AGAIN"
+endif
+
+all:
+	@echo $(VRE)

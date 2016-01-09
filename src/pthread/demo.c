@@ -35,7 +35,7 @@ void *thread1(void *arg)
     printf("enter thread1\n");
     printf("this is thread1, g_Flag: %d, thread id is %u\n", g_Flag, 
             (unsigned int)pthread_self());
-    if (pthread_mutex_lock(&mutex) == 0)
+    if (pthread_mutex_lock(&mutex) != 0)
         fprintf(stderr, "lock error\n");
     if (g_Flag == 2)
         pthread_cond_signal(&cond);
@@ -53,7 +53,7 @@ void *thread2(void *arg)
     printf("enter thread2\n");
     printf("this is thread2, g_Flag: %d, thread id is %u\n", g_Flag, 
             (unsigned int)pthread_self());
-    if (pthread_mutex_lock(&mutex) == 0)
+    if (pthread_mutex_lock(&mutex) != 0)
         fprintf(stderr, "lock error\n");
     if (g_Flag == 1)
         pthread_cond_signal(&cond);
