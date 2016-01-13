@@ -3,26 +3,34 @@
 ### arp
 
 * arp -a
-    * BSD style output
+    * BSD style output.
 * arp -d *address*
-    * delete an ARP table entry
+    * Delete an ARP table entry.
 * arp -s *address* *hd_addr*
-    * set up a new table entry
+    * Set up a new table entry.
 
 ### tcpdump
 
 * tcpdump -i *interface*
-    * listen on interface
+    * Listen on interface.
 * tcpdump -e
-    * print link-level header on each dump line
+    * Print link-level header on each dump line.
 * tcpdump -n
-    * do not convert host addresses to names, can avoid DNS lookups
+    * Do not convert host addresses to names, can avoid DNS lookups.
 * tcpdump -t
-    * do not print the timestamp on each dump line
+    * Do not print the timestamp on each dump line.
 * tcpdump -s *snaplen*
-    * snarf snaplen bytes of data from each package rather than the default 65535 bytes
+    * Snarf snaplen bytes of data from each package rather than the default 65535 bytes.
+* tcpdump -x
+    * When parsing or printing, in addition to printing the header of each packet, print the data of the packet (minus its link level header) in hex.
+* tcpdump -xx
+    * When parsing or printing, in addition to printing the header of each packet, print the data of the packet, including its link level header, in hex.
+* tcpdump -X
+    * When parsing or printing, in addition to printing the header of each packet, print the data of the packet (minux its link level header) in hex and ASCII.
+* tcpdump -XX
+    * When parsing or printing, in addition to printing the header of each packet, print the date of the packet, including its link level header, in hex and ASCII.
 
 ### host
 
 * host -t *type* *name*
-    * query type, type can be A, CNAME etc.
+    * Query type, type can be A, CNAME etc..
