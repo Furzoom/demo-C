@@ -1,0 +1,4 @@
+/home/mn/doc/demo-C/src/shell/temp/file1       /home/mn/doc/demo-C/src/shell/final
+/home/mn/doc/demo-C/src/shell/temp/file2       /home/mn/doc/demo-C/src/shell/final
+/home/mn/doc/demo-C/src/shell/temp/file3       /home/mn/doc/demo-C/src/shell/final
+/home/mn/doc/demo-C/src/shell/temp/file4       /home/mn/doc/demo-C/src/shell/final
