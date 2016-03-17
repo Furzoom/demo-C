@@ -32,6 +32,7 @@
 #define MAXLINE 4096        /* max text line lenght */
 #define BUFFSIZE 4096       /* buffer size for reads and writes */
 #define SERV_PORT 9877      /* server port */
+#define FILE_MODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) /* creat file mode */
 
 ssize_t readn(int filedes, void *buff, size_t nbytes);
 ssize_t writen(int filedes, const void *buff, size_t nbytes);
