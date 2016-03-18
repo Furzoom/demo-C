@@ -67,6 +67,15 @@ int main(int argc, char *argv[])
                 puts("unknown file type");
                 break;
         }
+        printf("I-node number:     %ld\n", (long)st.st_ino);
+        printf("Link count:        %ld\n", (long)st.st_nlink);
+        printf("blksize:           %ld\n", (long)st.st_blksize);
+        printf("file size:         %ld\n", (long)st.st_size);
+        printf("block allocated:   %ld\n", (long)st.st_blocks);
+        printf("Access time:       %s", ctime(&st.st_atime));
+        printf("Modification time: %s", ctime(&st.st_mtime));
+        printf("Change time:       %s", ctime(&st.st_ctime));
+
         i++;
     }
     return 0;
