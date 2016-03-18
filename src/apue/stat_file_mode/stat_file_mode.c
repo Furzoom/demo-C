@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     {
         if (lstat(argv[i], &st) == -1)
         {
-            err_msg("stat %s error", argv[i]);
+            perror(argv[i]);
             i++;
             continue;
         }
@@ -40,6 +40,33 @@ int main(int argc, char *argv[])
         else
             puts("unknown file type");
 
+        switch (st.st_mode & S_IFMT)
+        {
+            case S_IFREG:
+                puts("regular file");
+                break;
+            case S_IFDIR:
+                puts("directory");
+                break;
+            case S_IFCHR:
+                puts("character device");
+                break;
+            case S_IFBLK:
+                puts("block device");
+                break;
+            case S_IFIFO:
+                puts("FIFO (named pipe)");
+                break;
+            case S_IFLNK:
+                puts("symbolic link");
+                break;
+            case S_IFSOCK:
+                puts("socket");
+                break;
+            default:
+                puts("unknown file type");
+                break;
+        }
         i++;
     }
     return 0;
