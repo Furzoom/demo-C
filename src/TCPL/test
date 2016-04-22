@@ -1,10 +1,4 @@
-\a: abc
-\b: abc
-\f: abc
-\f, has some difference: abc
-\n: 
-abc
-\r: abc
-\t: 	abc
-\v: abc
-\v, has some difference: abc
+This   is   a test
+file.
+
+it works            well.
