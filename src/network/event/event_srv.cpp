@@ -28,9 +28,9 @@ struct sockStruct
 };
 
 map<int, sockStruct>        sock_map;
- 
+
 #define MAXRECVBUF 4096
-#define MAXBUF MAXRECVBUF+10 
+#define MAXBUF MAXRECVBUF+10
 
 int fd_Setnonblocking(int fd)
 {
@@ -39,28 +39,28 @@ int fd_Setnonblocking(int fd)
     fcntl(fd, F_SETFL, op | O_NONBLOCK);
     return op;
 }
- 
+
 void on_sigint(int signal)
 {
     log_debug("on_sigint");
     exit(0);
 }
- 
-/* 
-handle_message - 处理每个 socket 上的消息收发 
-*/ 
-int handle_message(int new_fd) 
-{ 
+
+/*
+handle_message - 处理每个 socket 上的消息收发
+*/
+int handle_message(int new_fd)
+{
     log_info("new_fd: %d", new_fd);
-    char buf[MAXBUF + 1]; 
-    //char sendbuf[MAXBUF+1]; 
-    int len; 
-    /* 开始处理每个新连接上的数据收发 */ 
-    bzero(buf, MAXBUF + 1); 
-    /* 接收客户端的消息 */ 
+    char buf[MAXBUF + 1];
+    //char sendbuf[MAXBUF+1];
+    int len;
+    /* 开始处理每个新连接上的数据收发 */
+    bzero(buf, MAXBUF + 1);
+    /* 接收客户端的消息 */
     //len = recv(new_fd, buf, MAXBUF, 0);
 
-    int nRecvBuf = MAXRECVBUF; //设置为32K 
+    int nRecvBuf = MAXRECVBUF; //设置为32K
 
     setsockopt(new_fd, SOL_SOCKET, SO_RCVBUF, ( const char* )&nRecvBuf, sizeof(int));
     len=recv(new_fd,&buf, MAXBUF,0);
@@ -72,10 +72,10 @@ int handle_message(int new_fd)
     send(new_fd,bufSend,strlen(buf),0);
     //--------------------------------------------------------------------------------------------
 
-    if (len > 0){ 
-        //printf ("%d接收消息成功:'%s'，共%d个字节的数据\n", new_fd, buf, len); 
+    if (len > 0){
+        //printf ("%d接收消息成功:'%s'，共%d个字节的数据\n", new_fd, buf, len);
         //hash-map
-        
+
         map<int, sockStruct>::iterator it_find;
         it_find = sock_map.find(new_fd);
         if(it_find == sock_map.end()){
@@ -96,11 +96,11 @@ int handle_message(int new_fd)
             strcat(bufSockMap, buf);
             //printf("bufSockMap:%s\n", bufSockMap);
         }
-    } 
-    else { 
-        if (len < 0) 
-            printf ("消息接收失败！错误代码是%d，错误信息是'%s'\n", 
-            errno, strerror(errno)); 
+    }
+    else {
+        if (len < 0)
+            printf ("消息接收失败！错误代码是%d，错误信息是'%s'\n",
+            errno, strerror(errno));
         else {
             //将socket从map中移除
             /*
@@ -108,12 +108,12 @@ int handle_message(int new_fd)
             it_find = sock_map.find(new_fd);
             sock_map.erase(it_find);
             */
-            printf("client %d quit!\n",new_fd); 
+            printf("client %d quit!\n",new_fd);
         }
-        //close(new_fd); 
-        return -1; 
-    } 
-    /* 处理每个新连接上的数据收发结束 */ 
+        //close(new_fd);
+        return -1;
+    }
+    /* 处理每个新连接上的数据收发结束 */
     //关闭socket的时候，要释放接收缓冲区。
     map<int, sockStruct>::iterator it_find;
     it_find = sock_map.find(new_fd);
@@ -121,8 +121,8 @@ int handle_message(int new_fd)
     sock_map.erase(it_find);
 
     close(new_fd);
-    return len; 
-} 
+    return len;
+}
 
 int listenfd;
 int sock_op=1;
@@ -147,14 +147,14 @@ int main(int argc,char* argv[])
     listenfd=socket(AF_INET,SOCK_STREAM,0);
     printf("listenfd: %d\n", listenfd);
     setsockopt(listenfd,SOL_SOCKET,SO_REUSEADDR,&sock_op,sizeof(sock_op));
- 
+
     memset(&address,0,sizeof(address));
     address.sin_addr.s_addr=htonl(INADDR_ANY);
     address.sin_port=htons(8006);
     bind(listenfd,(struct sockaddr*)&address,sizeof(address));
     listen(listenfd,1024);
     fd_Setnonblocking(listenfd);
- 
+
     epfd=epoll_create(65535);
     memset(&event,0,sizeof(event));
     event.data.fd=listenfd;
@@ -171,7 +171,7 @@ int main(int argc,char* argv[])
 * Function: * init_thread_pool
 * Description: * 初始化线程
 * Input: * threadNum:用于处理epoll的线程数
-* Output: * 
+* Output: *
 * Others: * 此函数为静态static函数,
 *************************************************/
 int init_thread_pool(int threadNum)
@@ -196,9 +196,9 @@ int init_thread_pool(int threadNum)
 /*************************************************
 * Function: * epoll_loop
 * Description: * epoll检测循环
-* Input: * 
-* Output: * 
-* Others: * 
+* Input: *
+* Output: *
+* Others: *
 *************************************************/
 static int count111 = 0;
 static time_t oldtime = 0, nowtime = 0;
@@ -206,7 +206,7 @@ void *epoll_loop(void* para)
 {
     while(1)
     {
-        n=epoll_wait(epfd,events,1024,-1);
+        n=epoll_wait(epfd,events,4096,-1);
         //printf("n = %d\n", n);
         if(n>0)
         {
@@ -236,7 +236,7 @@ void *epoll_loop(void* para)
                     if(events[i].events & EPOLLIN)
                     {
                         //handle_message(events[i].data.fd);
-                        char recvBuf[1024] = {0}; 
+                        char recvBuf[1024] = {0};
                         int ret = 999;
                         int rs = 1;
                         while(rs)
@@ -259,7 +259,7 @@ void *epoll_loop(void* para)
                             }
                             else if(ret == 0)
                             {
-                                // 这里表示对端的socket已正常关闭. 
+                                // 这里表示对端的socket已正常关闭.
                                 rs = 0;
                             }
                             else
@@ -317,9 +317,9 @@ void *epoll_loop(void* para)
 /*************************************************
 * Function: * check_connect_timeout
 * Description: * 检测长时间没反应的网络连接，并关闭删除
-* Input: * 
-* Output: * 
-* Others: * 
+* Input: *
+* Output: *
+* Others: *
 *************************************************/
 void *check_connect_timeout(void* para)
 {
