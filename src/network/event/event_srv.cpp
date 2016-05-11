@@ -42,6 +42,7 @@ int fd_Setnonblocking(int fd)
  
 void on_sigint(int signal)
 {
+    log_debug("on_sigint");
     exit(0);
 }
  
@@ -205,17 +206,18 @@ void *epoll_loop(void* para)
 {
     while(1)
     {
-        n=epoll_wait(epfd,events,4096,-1);
+        n=epoll_wait(epfd,events,1024,-1);
         //printf("n = %d\n", n);
         if(n>0)
         {
             for(i=0;i<n;++i)
             {
+                // new connect
                 if(events[i].data.fd==listenfd)
                 {
                     while(1)
                     {
-                        event.data.fd=accept(listenfd,NULL,NULL);
+                        event.data.fd = accept(listenfd,NULL,NULL);
                         if(event.data.fd>0)
                         {
                             fd_Setnonblocking(event.data.fd);
@@ -231,7 +233,7 @@ void *epoll_loop(void* para)
                 }
                 else
                 {
-                    if(events[i].events&EPOLLIN)
+                    if(events[i].events & EPOLLIN)
                     {
                         //handle_message(events[i].data.fd);
                         char recvBuf[1024] = {0}; 
@@ -260,12 +262,16 @@ void *epoll_loop(void* para)
                                 // 这里表示对端的socket已正常关闭. 
                                 rs = 0;
                             }
+                            else
+                            {
+                                log_info(recvBuf);
+                            }
                             if(ret == sizeof(recvBuf))
                                 rs = 1; // 需要再次读取
                             else
                                 rs = 0;
                         }
-                        if(ret>0){
+                        if(ret > 0){
                             count111 ++;
                             //struct tm *today;
                             //time_t ltime;
@@ -317,13 +323,17 @@ void *epoll_loop(void* para)
 *************************************************/
 void *check_connect_timeout(void* para)
 {
-    log_info("");
     map<int, sockStruct>::iterator it_find;
-    for(it_find = sock_map.begin(); it_find!=sock_map.end(); ++it_find){
-        if( time((time_t*)0) - (it_find->second).time > 120){                //时间更改
-            free((it_find->second).recvBuf);
-            sock_map.erase(it_find);
-            close(it_find->first);
+    while (1)
+    {
+        log_info("check_connect_timeout");
+        for(it_find = sock_map.begin(); it_find!=sock_map.end(); ++it_find){
+            if( time((time_t*)0) - (it_find->second).time > 120){                //时间更改
+                free((it_find->second).recvBuf);
+                sock_map.erase(it_find);
+                close(it_find->first);
+            }
         }
+        sleep(10);
     }
 }
