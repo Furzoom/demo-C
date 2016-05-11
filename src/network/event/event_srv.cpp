@@ -206,7 +206,7 @@ void *epoll_loop(void* para)
 {
     while(1)
     {
-        n=epoll_wait(epfd,events,4096,-1);
+        n=epoll_wait(epfd,events,1024,-1);
         //printf("n = %d\n", n);
         if(n>0)
         {
