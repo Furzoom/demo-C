@@ -4,17 +4,28 @@
 #include <string.h>
 #include <stdarg.h>
 
-#define TIME_LENGTH 21
+#define TIME_LENGTH 20
+
+static const char *LOG_FILE = "trace.log";
+
+static FILE *file = NULL;
 
 static void log_format(const char* tag, const char *msg, va_list args)
 {
     time_t t = time(NULL);
     struct tm *now = localtime(&t);
     static char date[TIME_LENGTH];
-    strftime(date, sizeof(date) - 1, "%Y-%m-%d %H:%M:%S", now);
-    printf("%s [%s] ", date, tag);
-    vprintf(msg, args);
-    printf("\n\n");
+    strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S", now);
+
+    if (!file)
+    {
+        file = fopen(LOG_FILE, "a");
+    }
+
+    fprintf(file, "%s [%s] ", date, tag);
+    vfprintf(file, msg, args);
+    fprintf(file, "\n\n");
+    fflush(file);
 }
 
 
