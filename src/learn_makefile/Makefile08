@@ -1,0 +1,8 @@
+# comments
+
+include Makefile09
+
+.PHONY: all
+all:
+	@echo "a line too long"
+
