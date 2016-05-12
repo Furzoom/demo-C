@@ -29,7 +29,7 @@
 #endif
 
 #define LISTENQ 1024        /* 2nd argument to listen */
-#define MAXLINE 4096        /* max text line lenght */
+#define MAXLINE 4096        /* max text line length */
 #define BUFFSIZE 4096       /* buffer size for reads and writes */
 #define SERV_PORT 9877      /* server port */
 #define FILE_MODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH) /* creat file mode */
