@@ -1,7 +1,8 @@
 obj=list_files
+CFLAGS=-Wall
 
-${obj}:${obj}.c
-	gcc -Wall -o ${obj} ${obj}.c -I../lib -L../lib -lunp
+${obj}:
+	$(CC) $(CFLAGS) -o $(obj) $(obj).c -I../lib -L../lib -lunp
 
 clean:
-	@rm -fv ${obj}
+	$(RM) $(obj)

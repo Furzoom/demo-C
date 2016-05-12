@@ -93,7 +93,7 @@ static void err_doit(int errnoflag, int level, const char *fmt, va_list ap)
 
     if (daemon_proc)
     {
-        syslog(level, buf);
+        syslog(level, "%s", buf);
     }
     else
     {
