@@ -19,5 +19,5 @@ read_write.o: read_write.c unp.h
 
 .PHONY:clean
 clean:
-	-rm ${obj} ${test} error.o read_write.o
+	$(RM) ${obj} ${test} error.o read_write.o
 	@echo "clean up"
