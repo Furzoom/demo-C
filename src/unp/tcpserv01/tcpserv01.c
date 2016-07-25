@@ -17,7 +17,7 @@ Sigfunc *Signal(int signo, Sigfunc *func)
     act.sa_handler = func;
     sigemptyset(&act.sa_mask);
     act.sa_flags = 0;
-    if (signo ==  SIGALRM)
+    if (signo == SIGALRM)
     {
 #ifdef SA_INTERRUPT
         act.sa_flags |= SA_INTERRUPT;
@@ -39,8 +39,10 @@ void sig_chld(int signo)
     pid_t   pid;
     int     stat;
 
-    pid = wait(&stat);
-    printf("child %d terminated\n", pid);
+    while ((pid = waitpid(-1, &stat, WNOHANG)) > 0)
+    {
+        printf("child %d terminated\n", pid);
+    }
     return;
 }
 
@@ -95,11 +97,12 @@ int main(int argc, char *argv[])
         {
             if (errno == EINTR)
             {
+                err_ret("accept");
                 continue;       // back to while
             }
             else
             {
-                err_sys("connfd error");
+                err_sys("accept error");
             }
         }
 
