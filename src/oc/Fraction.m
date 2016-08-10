@@ -1,48 +1,24 @@
 #import <Foundation/Foundation.h>
-
-//--- @interface section ---
-@interface Fraction: NSObject
-{
-    int numerator;
-    int denominator;
-}
-
--(void) print;
--(void) setNumerator: (int) n;
--(void) setDenominator: (int) d;
-
-@end
+#import "Fraction.h"
 
 //--- @implementation section ---
+
 @implementation Fraction
+
+@synthesize numerator, denominator;
+
 -(void) print
 {
     NSLog(@"%i/%i", numerator, denominator);
 }
 
--(void) setNumerator: (int) n
+-(double) convertToNum
 {
-    numerator = n;
-}
-
--(void) setDenominator: (int) d
-{
-    denominator = d;
+    if (denominator != 0)
+        return (double) numerator / denominator;
+    else
+        return 1.0;
 }
 
 @end
 
-int main(int argc, char *argv[])
-{
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    Fraction *myFraction = [[Fraction alloc] init];
-    [myFraction setNumerator: 1];
-    [myFraction setDenominator: 3];
-
-    NSLog(@"The value of myFraction is:");
-    [myFraction print];
-    [myFraction release];
-
-    [pool drain];
-    return 0;
-}
