@@ -16,7 +16,7 @@ int main(void)
     long total;
     pthread_t h_thread;
     pthread_create(&h_thread, NULL, child_thread, (void *)100);
-    pthread_join(h_thread, (void **)&total);
+    pthread_join(h_thread, (void *)&total);
     printf("Total is %ld\n", total);
     return 0;
 }
