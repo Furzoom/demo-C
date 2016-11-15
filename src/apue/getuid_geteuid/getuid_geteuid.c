@@ -7,8 +7,9 @@
 int main()
 {
     int fd;
-    printf("Process's uid = %d, euid = %d\n", getuid(), geteuid());
-    if ((fd = open("test.txt", O_RDWR)) == -1)
+    printf("Process's uid = %d, euid = %d, gid = %d, egid = %d\n",
+            getuid(), geteuid(), getgid(), getegid());
+    if ((fd = open("makefile", O_RDWR)) == -1)
         err_sys("Open failuer");
 
     printf("Open successfully!\n");
