@@ -13,9 +13,16 @@ BEGIN {
         printf("\t\tprintf(\"%-25s: %%10ld\\n\", sysconf(%s));\n", $1, $1)
         printf("\t}\n\n");
     }
-    printf("return 0;\n")
-    printf("}\n")
     close("sysconf.conf")
 }
 
+{
+    printf("\tprintf(\"%-25s: %%10ld\\n\", pathconf(\"%s\","\
+            "%s));\n", $1, $2, $1);
+}
 
+END {
+    close("pathconf.conf")
+    printf("return 0;\n")
+    printf("}\n")
+}
