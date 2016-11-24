@@ -1,0 +1,6 @@
+# when set GPATH $@ is different
+#GPATH = src
+VPATH = src
+file.o: file.c
+	@echo $^
+	@echo $@

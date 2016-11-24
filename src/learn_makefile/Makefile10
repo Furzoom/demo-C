@@ -1,0 +1,8 @@
+objects := $(patsubst %.c, %.o, $(wildcard *.c))
+
+edit: $(objects)
+	cc -o $@ $(objects)
+
+.PHONY: clean
+clean:
+	-$(RM) $(objects) edit
