@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
     if (argc <= 2)
-        err_quit("usage: %s <oldpath> <newpath>", argv[1]);
+        err_quit("Usage: %s <oldpath> <newpath>", argv[0]);
     if (access(argv[1], F_OK) == -1)
         err_sys(argv[1]);
     if (access(argv[2], F_OK) == 0)
