@@ -4,7 +4,7 @@
 int main(int argc, char *argv[], char *env[])
 {
     char *newargv[] = {NULL, "hello", "world", NULL};
-    char *newenv[] = {NULL};
+    char *newenv[] = {"USER=unknown", "PATH=/tmp", NULL};
 
     if (argc != 2)
     {
