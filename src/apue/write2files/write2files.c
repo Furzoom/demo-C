@@ -7,20 +7,20 @@ int main()
     const char str1[] = "ABCDEFG";
     const char str2[] = "abcdefg";
 
-    if ((fd1 = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR)) < 0)
+    if ((fd1 = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
     {
         err_sys("open error");
     }
-    if ((fd2 = open(filename, O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR)) < 0)
+    if ((fd2 = open(filename, O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR)) < 0)
     {
         err_sys("open error");
     }
 
-    if (write(fd1, str1, sizeof(str1)) < sizeof(str1))
+    if (write(fd1, str1, strlen(str1)) < strlen(str1))
     {
         err_sys("write error");
     }
-    if (write(fd2, str2, sizeof(str2)) < sizeof(str2))
+    if (write(fd2, str2, strlen(str2)) < strlen(str2))
     {
         err_sys("write error");
     }

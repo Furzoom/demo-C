@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-    const char *pathname = "test";
+    const char *pathname = "demo";
     printf("mkdir...\n");
     if (mkdir(pathname, S_IRUSR | S_IWUSR | S_IXUSR) < 0)
         err_sys("mkdir error");

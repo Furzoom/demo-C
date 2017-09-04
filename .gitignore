@@ -1,5 +1,7 @@
 # folder
 src/unp/test/
+.idea/
+cmake-build-debug/
 # Object files
 *.o
 *.ko

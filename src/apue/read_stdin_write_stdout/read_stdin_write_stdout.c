@@ -5,7 +5,7 @@
 
 int main()
 {
-    int n;
+    ssize_t n;
     char buf[BUFFSIZE];
     
     while ((n = read(STDIN_FILENO, buf, BUFFSIZE)) > 0)

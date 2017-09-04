@@ -36,6 +36,6 @@ int main(int argc, char *argv[])
         printf(", synchronous writes");
     if (val & O_FSYNC)
         printf(", synchronous writes");
-    putchar('\n');
+    fputc('\n', stdout);
     return 0;
 }
