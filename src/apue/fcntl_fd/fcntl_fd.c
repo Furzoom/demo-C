@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
   {
     err_sys("F_SETFD failed");
   }
-  
+
   if ((val = fcntl(STDIN_FILENO, F_GETFD, 0)) < 0)
   {
     err_sys("F_GETFD failed");

@@ -4,7 +4,6 @@
  */
 
 #include "unp.h"
-#include <sys/stat.h>
 
 int main(int argc, char *argv[])
 {
@@ -72,6 +71,10 @@ int main(int argc, char *argv[])
         printf("blksize:           %ld\n", (long)st.st_blksize);
         printf("file size:         %ld\n", (long)st.st_size);
         printf("block allocated:   %ld\n", (long)st.st_blocks);
+        printf("device ID:         %ld\n", (long)st.st_dev);
+        printf("device ID(special):%ld\n", (long)st.st_rdev);
+        printf("user ID:           %ld\n", (long)st.st_uid);
+        printf("group ID:          %ld\n", (long)st.st_gid);
         printf("Access time:       %s", ctime(&st.st_atime));
         printf("Modification time: %s", ctime(&st.st_mtime));
         printf("Change time:       %s", ctime(&st.st_ctime));
