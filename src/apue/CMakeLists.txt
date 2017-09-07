@@ -26,6 +26,7 @@ add_executable(fcntl_getfl fcntl_getfl/fcntl_getfl.c)
 add_executable(fcntl_setfl fcntl_setfl/fcntl_setfl.c)
 add_executable(fcntl_fd fcntl_fd/fcntl_fd.c)
 add_executable(stat_file_mode stat_file_mode/stat_file_mode.c)
+add_executable(stat_demo stat_demo/stat_demo.c)
 
 
 
