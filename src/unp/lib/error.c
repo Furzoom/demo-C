@@ -17,7 +17,6 @@ void err_ret(const char *fmt, ...)
     va_start(ap, fmt);
     err_doit(1, LOG_INFO, fmt, ap);
     va_end(ap);
-    return;
 }
 
 /* Fatal error related to system call.
@@ -54,7 +53,6 @@ void err_msg(const char *fmt, ...)
     va_start(ap, fmt);
     err_doit(0, LOG_INFO, fmt, ap);
     va_end(ap);
-    return;
 }
 
 /* Fatal error unrelated to system call.
@@ -93,7 +91,7 @@ static void err_doit(int errnoflag, int level, const char *fmt, va_list ap)
 
     if (daemon_proc)
     {
-        syslog(level, buf);
+        syslog(level, "%s", buf);
     }
     else
     {
@@ -101,6 +99,5 @@ static void err_doit(int errnoflag, int level, const char *fmt, va_list ap)
         fputs(buf, stderr);
         fflush(stderr);
     }
-    return;
 }
 
